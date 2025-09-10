@@ -47,7 +47,7 @@ class ImportProducts extends Command
 
             foreach ($products as $productData) {
 
-                ImportProductJob::dispatch($productData);
+                ImportProductJob::dispatchSync($productData);
                 $bar->advance();
             }
 

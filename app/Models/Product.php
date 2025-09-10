@@ -17,6 +17,20 @@ class Product extends Model
         'updated_at',
     ];
 
+    public function getPhotoAttribute($value)
+    {
+       
+        if (empty($value)) {
+            return url('/images/no-image.png'); 
+        }
+
+        if (preg_match('#^https?://#i', $value)) {
+            return preg_replace('#^http://#i', 'https://', $value);
+        }
+
+        return url($value);
+    }
+
     public function tags()
     {
         return $this->hasMany(Tag::class);

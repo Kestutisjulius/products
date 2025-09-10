@@ -9,6 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
+use Illuminate\Support\Facades\Cache;
 use App\Models\Tag;
 use Illuminate\Support\Str;
 
@@ -52,6 +53,7 @@ class ImportProductJob implements ShouldQueue
         }
 
         DB::commit();
+        Cache::forget("product_info_{$product->sku}");
 
     } catch (\Exception $e) {
         DB::rollBack();
